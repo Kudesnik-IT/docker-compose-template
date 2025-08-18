@@ -1,0 +1,153 @@
+# ========================
+# Системные и скрытые файлы
+# ========================
+.*
+!.dockerignore
+!.gitignore
+!*.dockerfile
+!Dockerfile*
+
+# Пояснение: исключаем все скрытые файлы, кроме нужных Docker-файлов
+
+# ========================
+# Окружение и секреты
+# ========================
+.env
+.env.local
+.env.*       # все .env-файлы: .env.production, .env.dev и т.д.
+
+# SSH и GPG
+.ssh/
+.gnupg/
+.gpg/
+
+# API-ключи
+*.pem
+*.key
+*.crt
+*.der
+
+# ========================
+# Docker (самоисключение)
+# ========================
+docker-compose*
+compose*
+.docker/
+
+# ========================
+# Управление версиями
+# ========================
+.git
+.gitignore
+.gitmodules
+.gitattributes
+
+# ========================
+# Логи и временные файлы
+# ========================
+*.log
+logs/
+log/
+tmp/
+temp/
+cache/
+coverage/
+.nyc_output/
+
+# ========================
+# Зависимости (собираются внутри контейнера)
+# ========================
+# Node.js
+node_modules/
+npm-debug.log
+yarn.log
+yarn-error.log
+.yarn/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Java
+target/
+*.jar
+*.war
+
+# Go
+go.sum  # можно исключить, если копируется вручную
+bin/
+pkg/
+
+# PHP
+vendor/          # если устанавливаешь через composer внутри
+.phpunit
+
+# Rust
+/target/
+
+# .NET
+bin/
+obj/
+
+# ========================
+# IDE и редакторы
+# ========================
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (IntelliJ, PyCharm, WebStorm и др.)
+.idea/
+*.iml
+*.iws
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# Vim
+.swap
+.un~
+Session.vim
+.netrwhist
+*~
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ========================
+# Документация и лицензии
+# ========================
+README.md
+README
+readme.md
+LICENSE
+CHANGELOG.md
+AUTHORS
+
+# ========================
+# Данные рантайма
+# ========================
+data/
+
+# ========================
+# Конфигурация
+# ========================
+config/
+
+# ========================
+# Инфраструктурные папки (наша структура)
+# ========================
+scripts/
+tests/
+docker/
+Makefile
