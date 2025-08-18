@@ -205,9 +205,8 @@ cd project
 
 ### 2. Настройте переменные окружения
 ```bash
-cp .env .env.local
 cp docker/.env/.env.example docker/.env/.env.dev
-# Отредактируйте .env.local и docker/.env/.env.dev
+# Отредактируйте .env и docker/.env/.env.dev
 ```
 
 ### 3. Запустите в режиме разработки
@@ -242,7 +241,7 @@ make down
 
 ## 📚 Рекомендации
 
-- Никогда не коммитьте `.env.local`, `.env.dev`, `.env.prod`
+- Никогда не коммитьте `.env, `.env.dev`, `.env.prod`
 - Обновляйте `.env.example` при добавлении новых переменных
 - Используйте `make dev`, `make prod` — не пишите длинные `docker compose` вручную
 - Регулярно бэкапьте папку `data/`
