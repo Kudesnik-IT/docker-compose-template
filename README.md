@@ -52,8 +52,8 @@ project-root/
 │   ├── compose.prod.yaml           # Override: prod-окружение + .env.prod
 │   └── .env/
 │       ├── .env.example            # Шаблон для новых разработчиков
-│       ├── .env.dev            # Переменные для dev-окружения
-│       ├── .env.prod           # Переменные для prod-окружения
+│       ├── .env.dev                # Переменные для dev-окружения
+│       ├── .env.prod               # Переменные для prod-окружения
 │       └── services/
 │           └── sample.env          # Переменные, специфичные для сервиса sample
 │
