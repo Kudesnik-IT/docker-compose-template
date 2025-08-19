@@ -1,0 +1,65 @@
+name: "${COMPOSE_PROJECT_NAME}"
+
+#######################################
+########## Description ################
+#
+#           ----- SAMPLE SERVICE -----
+# Простой HTTP-сервер для демонстрации структуры
+# Используется как шаблон для новых сервисов
+# cpus: 0.2
+# mem_limit: 128M
+# mem_reservation: 32M
+#
+#######################################
+
+############################
+########## ANCHOR ##########
+
+x-logging: &default_logging
+  driver: "json-file"
+  options:
+    max-size: "20m"
+    max-file: "10"
+
+####################################
+########## SETUP SERVICES ##########
+services:
+
+#--------- SAMPLE - Service Template ---------#
+  sample:
+    build:
+      context: apps/sample
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 32M
+    environment:
+      - PORT_SERVICE=${PORT_SERVICE}
+      - APP_ENV=${APP_ENV:-development}
+    env_file:
+      - docker/.env/services/sample.env
+    logging: *default_logging
+    networks:
+      - net
+    expose:
+      - "8000"
+    ports:
+      - "${PORT_SERVICE}:8000"
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8000"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+###################################
+########## SETUP NETWORK ##########
+networks:
+  net:
+    driver: bridge
