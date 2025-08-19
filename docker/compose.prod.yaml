@@ -1,0 +1,29 @@
+# docker/compose.prod.yaml
+# Конфигурация для продакшена
+# Без отладки, с ограничениями, безопасностью
+
+services:
+  sample:
+    # Нет volumes — код встроен в образ
+    # Отключаем отладку
+    # Подключение prod-переменных
+    env_file:
+      - docker/.env/services/sample.env.prod
+    # Убираем дополнительные порты
+    # Оставляем только основной из compose.yaml
+    # Повышенная надёжность
+    restart: always
+    # Повышенные требования к здоровью
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8000"]
+      interval: 60s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    # Ограничения ресурсов (можно усилить)
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 32M
