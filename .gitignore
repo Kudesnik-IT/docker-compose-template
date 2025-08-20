@@ -1,0 +1,194 @@
+
+# ========================
+# СИСТЕМНЫЕ И СКРЫТЫЕ ФАЙЛЫ
+# ========================
+# Игнорируем все скрытые файлы, кроме нужных
+.*
+
+# Разрешаем:
+!/.gitignore
+!/.dockerignore
+!/*.dockerfile
+!/Dockerfile
+!/.editorconfig
+!/.*.yml          # Например, .pre-commit-config.yml
+!/.env.example
+
+# ========================
+# ОКРУЖЕНИЕ И СЕКРЕТЫ
+# ========================
+# Все .env-файлы — НЕ коммитятся
+.env
+.env.local
+.env.*
+!.env.example     # Шаблон для новых разработчиков
+
+# Секреты и ключи
+.ssh/
+.gnupg/
+.gpg/
+*.pem
+*.key
+*.crt
+*.der
+*.jks
+*.p12
+
+# Переменные окружения в папке docker/.env
+docker/.env/*
+!docker/.env/.env.example
+!docker/.env/environments/.env.example
+!docker/.env/services/*.example
+
+# Внутренние файлы Docker
+.docker/
+
+# Контекст сборки — не должен попадать
+context/
+build/
+dist/
+out/
+output/
+
+# ========================
+# УПРАВЛЕНИЕ ВЕРСИЯМИ
+# ========================
+.git
+.gitignore
+.gitmodules
+.gitattributes
+!.github/                         # Можно добавить CI/CD, actions
+
+# ========================
+# ДАННЫЕ И ЛОГИ (рантайм)
+# ========================
+# Не коммитятся — это состояние, а не код
+data/
+logs/
+log/
+tmp/
+temp/
+cache/
+coverage/
+.nyc_output/
+*.log
+
+# ========================
+# ЗАВИСИМОСТИ (управляются пакетными менеджерами)
+# ========================
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.yarn/
+.pnpm-store/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+*.egg
+.tox/
+.venv/
+venv/
+env/
+
+# Java
+target/
+*.jar
+*.war
+*.ear
+.DS_Store
+.mvn/
+
+# Go
+bin/
+pkg/
+go.sum  # можно включить, если используется
+
+# PHP
+vendor/
+.phpunit
+var/
+cache/
+logs/
+
+# Rust
+/target/
+Cargo.lock  # можно включить
+
+# .NET
+bin/
+obj/
+*.dll
+*.exe
+
+# Но игнорируем только чувствительные подпапки:
+config/secrets/
+scripts/*.local.sh
+tests/.env
+
+# ========================
+# IDE И РЕДАКТОРЫ
+# ========================
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*/.ipr
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# Vim
+*.swp
+*.swo
+*.un~
+*.swap
+Session.vim
+.netrwhist
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ========================
+# СБОРКА И АРТЕФАКТЫ
+# ========================
+dist/
+build/
+out/
+*.exe
+*.msi
+*.zip
+*.tar.gz
+*.whl
+*.egg
+
+# ========================
+# ПРОЧЕЕ
+# ========================
+Thumbs.db
+.DS_Store
+.DS_Store?
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+vercel
