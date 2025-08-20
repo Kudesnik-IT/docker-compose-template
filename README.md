@@ -18,15 +18,19 @@ project-root/
 │   ├── backend/
 │   │   ├── src/
 │   │   ├── Dockerfile
-│   │   └── requirements.txt
+│   │   ├── requirements.txt
+│   │   └── .dockerignore
 │   ├── frontend/
 │   │   ├── src/
-│   │   └── Dockerfile
+│   │   ├── Dockerfile
+│   │   └── .dockerignore
 │   └── worker/
-│   │   └── src/
+│   │   ├── src/
+│   │   └── .dockerignore
 │   └── sample/
 │       ├── src/
-│       └── Dockerfile
+│       ├── Dockerfile
+│       └── .dockerignore
 │
 ├── config/                         # Конфигурационные файлы сервисов
 │   ├── nginx/
@@ -164,6 +168,55 @@ docker/.env/
 
 > 🔐 Секреты (пароли, ключи API) — только в файлах в `docker/.env/`.  
 > `.env.example` содержит только шаблоны: `DB_PASSWORD=your_password_here`.
+
+---
+
+### 🔹 7. Важно: .dockerignore для каждого сервиса
+
+Каждый сервис в `apps/` должен иметь свой **локальный `.dockerignore`**, чтобы:
+- Ускорить сборку (не передавать лишнее в контекст)
+- Избежать утечки секретов и временных файлов
+- Гарантировать, что в образ попадает только необходимое
+
+Пример: `apps/sample/.dockerignore`
+```text
+*
+!src/
+!src/*
+!Dockerfile
+!.dockerignore
+```
+
+Такой файл гарантирует, что в контекст сборки попадает только:
+- `src/` — исходный код
+- `Dockerfile` — инструкции сборки
+- `.dockerignore` — сам файл
+
+❌ Ничего лишнего: `.env`, `node_modules`, `logs/`, `data/` — не попадают.
+
+---
+
+### 🔹 8. Важно: указывайте правильный `context` в `compose.yaml`
+
+При использовании `.dockerignore` в `apps/sample/`, **убедитесь, что в `compose.yaml` указан правильный `context`**:
+
+```yaml
+services:
+  sample:
+    build:
+      context: apps/sample          # ← Правильно: указывает на папку сервиса
+      dockerfile: Dockerfile
+```
+
+✅ Почему это важно:
+- Docker использует `.dockerignore` **из папки `context`**
+- Если `context: .`, то применяется корневой `.dockerignore`, а не `apps/sample/.dockerignore`
+- Это может привести к:
+  - Передаче лишних файлов в контекст
+  - Утечке секретов
+  - Медленной сборке
+
+> 💡 Совет: всегда используйте `context: apps/<service-name>` для сервисов.
 
 ---
 
