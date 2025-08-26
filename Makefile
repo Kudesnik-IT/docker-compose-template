@@ -126,6 +126,42 @@ clean-all: clean
 		down --volumes --rmi all --remove-orphans
 
 # ===================================
+# Команды очистки Docker
+# ===================================
+
+# Удаление висячих образов и неиспользуемых данных
+prune:
+	@echo "🧹 Очистка висячих образов и неиспользуемых данных..."
+	docker image prune -f
+	docker container prune -f
+	docker network prune -f
+	docker builder prune -f
+	@echo "✅ Базовая очистка завершена."
+
+# Полная очистка: все неиспользуемые данные
+prune-all:
+	@echo "🚨 Полная очистка Docker (осторожно!)..."
+	docker system prune -af --volumes
+	@echo "✅ Полная очистка завершена."
+
+# Удаление только неиспользуемых образов
+prune-images:
+	@echo "🧹 Удаление неиспользуемых образов..."
+	docker image prune -af
+	@echo "✅ Неиспользуемые образы удалены."
+
+# Удаление неиспользуемых volumes
+prune-volumes:
+	@echo "🧹 Удаление неиспользуемых volumes..."
+	docker volume prune -f
+	@echo "✅ Неиспользуемые volumes удалены."
+
+# Анализ использования диска Docker
+disk-usage:
+	@echo "📊 Использование диска Docker:"
+	docker system df -v
+
+# ===================================
 # Справка
 # ===================================
 
