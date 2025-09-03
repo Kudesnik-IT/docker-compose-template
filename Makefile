@@ -124,40 +124,6 @@ endif
 # ===================================
 # Режимы окружения
 # ===================================
-
-# Запуск в режиме разработки
-# Подключает .env + .env.dev
-dev:
-	docker compose \
-		--env-file .env \
-		--env-file docker/.env/environments/.env.dev \
-		-f compose.yaml \
-		-f docker/compose.dev.yaml \
-		up -d --build
-
-# Запуск в продакшене
-# Подключает .env + .env.prod
-prod:
-	docker compose \
-		--env-file .env \
-		--env-file docker/.env/environments/.env.prod \
-		-f compose.yaml \
-		-f docker/compose.prod.yaml \
-		up -d --build
-
-# Запуск тестов
-# Использует compose.test.yaml
-test:
-	docker compose \
-		--env-file .env \
-		--env-file docker/.env/environments/.env.test \
-		-f compose.yaml \
-		-f tests/compose.test.yaml \
-		up --abort-on-container-exit
-
-# ===================================
-# Режимы окружения
-# ===================================
 .PHONY: dev prod test
 
 # Запуск в режиме разработки
